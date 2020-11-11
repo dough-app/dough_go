@@ -29,3 +29,7 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func test() {
+
+}
