@@ -3,6 +3,7 @@ package controllers
 import (
 	"dough_go/models"
 	"encoding/json"
+	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -88,9 +89,12 @@ func (u *UserController) Delete() {
 // @Failure 403 user not exist
 // @router /login [get]
 // @example http://localhost:8080/v1/user/login
+// @example http://localhost:8080/v1/user/login?username=astaxie&password=11111
 func (u *UserController) Login() {
 	username := u.GetString("username")
 	password := u.GetString("password")
+	fmt.Printf("username::%v\n", username)
+	fmt.Printf("password::%v\n", password)
 	if models.Login(username, password) {
 		u.Data["json"] = "login success"
 	} else {
