@@ -3,7 +3,6 @@ package controllers
 import (
 	"dough_go/models"
 	"encoding/json"
-	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -20,25 +19,16 @@ func (o *ObjectController) Post() {
 }
 
 func (o *ObjectController) Get() {
-	//obs := models.GetAll()
-	//o.Data["json"] = obs
-	//o.ServeJSON()
-
-	fmt.Println("test")
-
-	objectId := o.Ctx.Input.Param(":objectId")
-	fmt.Println("1")
-	fmt.Println(objectId)
-	fmt.Println("1")
-	if objectId != "" {
-		ob, err := models.GetOne(objectId)
-		if err != nil {
-			o.Data["json"] = err.Error()
-		} else {
-			o.Data["json"] = ob
-		}
-	}
+	users := models.GetAllUsers()
+	o.Data["json"] = users
 	o.ServeJSON()
+	//var u models.User
+	//u.Id = "12"
+	//u.Password = "深圳"
+	//u.Username = "q1"
+	//fmt.Printf("user::%v\n", u)
+	//fmt.Printf("user::%#v\n", u)
+
 }
 
 func (o *ObjectController) Put() {

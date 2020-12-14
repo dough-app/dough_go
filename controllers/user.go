@@ -31,6 +31,7 @@ func (u *UserController) GetAll() {
 // @Success 200 {object} models.User
 // @Failure 403 :uid is empty
 // @router /:uid [get]
+// @example http://localhost:8080/v1/user/user_11111
 func (u *UserController) Get() {
 	uid := u.GetString(":uid")
 	if uid != "" {
@@ -86,6 +87,7 @@ func (u *UserController) Delete() {
 // @Success 200 {string} login success
 // @Failure 403 user not exist
 // @router /login [get]
+// @example http://localhost:8080/v1/user/login
 func (u *UserController) Login() {
 	username := u.GetString("username")
 	password := u.GetString("password")
