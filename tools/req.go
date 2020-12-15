@@ -2,7 +2,6 @@ package tools
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/astaxie/beego/context"
 )
 
@@ -13,10 +12,9 @@ func ReqPostBody(c *context.Context, key string) (value string, err error) {
 	if err1 != nil {
 		return "", err1
 	}
-	param := c.Request.Form[key]
-	if param != nil && len(param) != 0 {
-		fmt.Printf("param::%v\n", param)
-		return param[0], nil
+	param := c.Request.Form.Get(key)
+	if param != "" && len(param) != 0 {
+		return param, nil
 	} else {
 		decoder := json.NewDecoder(c.Request.Body)
 		// 用于存放参数key=value数据
