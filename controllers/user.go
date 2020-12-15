@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"dough_go/models"
+	"dough_go/tools"
 	"encoding/json"
 	"fmt"
-
 	"github.com/astaxie/beego"
 )
 
@@ -13,6 +13,14 @@ type UserController struct {
 }
 
 func (u *UserController) Post() {
+
+	uid1, err := tools.ReqPostBody(u.Ctx, "uid")
+
+	if err != nil {
+		fmt.Printf("err::%v\n", err)
+	}
+	fmt.Printf("uid::%v\n", uid1)
+
 	var user models.User
 	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
 	uid := models.AddUser(user)
@@ -20,10 +28,23 @@ func (u *UserController) Post() {
 	u.ServeJSON()
 }
 
-func (u *UserController) GetAll() {
-	users := models.GetAllUsers()
-	u.Data["json"] = users
-	u.ServeJSON()
+func (u *UserController) Get() {
+	uid := u.GetString("uid")
+	fmt.Printf("uid为::%v\n", uid)
+
+	//if uid != "" {
+	//	user, err := models.GetUser(uid)
+	//	if err != nil {
+	//		u.Data["json"] = err.Error()
+	//	} else {
+	//		u.Data["json"] = user
+	//	}
+	//	u.ServeJSON()
+	//} else {
+	//	users := models.GetAllUsers()
+	//	u.Data["json"] = users
+	//	u.ServeJSON()
+	//}
 }
 
 // @Title Get
@@ -33,18 +54,18 @@ func (u *UserController) GetAll() {
 // @Failure 403 :uid is empty
 // @router /:uid [get]
 // @example http://localhost:8080/v1/user/user_11111
-func (u *UserController) Get() {
-	uid := u.GetString(":uid")
-	if uid != "" {
-		user, err := models.GetUser(uid)
-		if err != nil {
-			u.Data["json"] = err.Error()
-		} else {
-			u.Data["json"] = user
-		}
-	}
-	u.ServeJSON()
-}
+//func (u *UserController) Get() {
+//	uid := u.GetString(":uid")
+//	if uid != "" {
+//		user, err := models.GetUser(uid)
+//		if err != nil {
+//			u.Data["json"] = err.Error()
+//		} else {
+//			u.Data["json"] = user
+//		}
+//	}
+//	u.ServeJSON()
+//}
 
 // @Title Update
 // @Description update the user

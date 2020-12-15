@@ -9,19 +9,25 @@ package routers
 
 import (
 	"dough_go/controllers"
-
 	"github.com/astaxie/beego"
 )
 
 func init() {
+	beego.BConfig.CopyRequestBody = true
+
 	ns := beego.NewNamespace("/v1",
 		beego.NSRouter("/object",
 			&controllers.ObjectController{},
 		),
 		beego.NSRouter("/user",
 			&controllers.UserController{},
-			"get:GetAll",
 		),
+
+	//beego.NSNamespace("/user",
+	//	beego.NSInclude(
+	//		&controllers.UserController{},
+	//	),
+	//),
 	)
 	beego.AddNamespace(ns)
 }
