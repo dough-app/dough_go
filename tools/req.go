@@ -7,6 +7,7 @@ import (
 
 // 完美解析Post请求json参数
 // 支持：[x-www-from-urlencoded]、raw[json]
+// get请求获取参数：controller.GetString("key")
 func ReqPostBody(c *context.Context, key string) (value string, err error) {
 	err1 := c.Request.ParseForm()
 	if err1 != nil {
