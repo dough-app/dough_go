@@ -23,6 +23,7 @@ func (u *UserController) Post() {
 
 	var user models.User
 	json.Unmarshal(u.Ctx.Input.RequestBody, &user)
+	user.Id = uid1
 	uid := models.AddUser(user)
 	u.Data["json"] = map[string]string{"uid": uid}
 	u.ServeJSON()
@@ -32,19 +33,19 @@ func (u *UserController) Get() {
 	uid := u.GetString("uid")
 	fmt.Printf("uid为::%v\n", uid)
 
-	//if uid != "" {
-	//	user, err := models.GetUser(uid)
-	//	if err != nil {
-	//		u.Data["json"] = err.Error()
-	//	} else {
-	//		u.Data["json"] = user
-	//	}
-	//	u.ServeJSON()
-	//} else {
-	//	users := models.GetAllUsers()
-	//	u.Data["json"] = users
-	//	u.ServeJSON()
-	//}
+	if uid != "" {
+		user, err := models.GetUser(uid)
+		if err != nil {
+			u.Data["json"] = err.Error()
+		} else {
+			u.Data["json"] = user
+		}
+		u.ServeJSON()
+	} else {
+		users := models.GetAllUsers()
+		u.Data["json"] = users
+		u.ServeJSON()
+	}
 }
 
 // @Title Update
