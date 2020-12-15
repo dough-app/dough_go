@@ -14,7 +14,7 @@ type UserController struct {
 
 func (u *UserController) Post() {
 
-	uid1, err := tools.ReqPostBody(u.Ctx, "uid")
+	uid1, err := tools.ReqPostBody(u.Ctx.Request, "uid")
 
 	if err != nil {
 		fmt.Printf("err::%v\n", err)
@@ -46,26 +46,6 @@ func (u *UserController) Get() {
 	//	u.ServeJSON()
 	//}
 }
-
-// @Title Get
-// @Description get user by uid
-// @Param	uid		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.User
-// @Failure 403 :uid is empty
-// @router /:uid [get]
-// @example http://localhost:8080/v1/user/user_11111
-//func (u *UserController) Get() {
-//	uid := u.GetString(":uid")
-//	if uid != "" {
-//		user, err := models.GetUser(uid)
-//		if err != nil {
-//			u.Data["json"] = err.Error()
-//		} else {
-//			u.Data["json"] = user
-//		}
-//	}
-//	u.ServeJSON()
-//}
 
 // @Title Update
 // @Description update the user
