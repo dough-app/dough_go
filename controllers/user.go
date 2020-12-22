@@ -43,6 +43,8 @@ func (u *UserController) Get() {
 		u.ServeJSON()
 	} else if uid == "401" {
 		u.Abort("401")
+	} else if uid == "404" {
+		u.Abort("404")
 	} else {
 		user, err := models.GetUser(uid)
 		if err != nil {
