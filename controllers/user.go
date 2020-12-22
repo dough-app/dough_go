@@ -41,6 +41,10 @@ func (u *UserController) Get() {
 			u.Data["json"] = user
 		}
 		u.ServeJSON()
+	} else if uid == "json" {
+		uModel := models.User{Id: "id1", Username: "name1"}
+		u.Data["json"] = &uModel
+		u.ServeJSON()
 	} else {
 		users := models.GetAllUsers()
 		u.Data["json"] = users
