@@ -33,21 +33,23 @@ func (u *UserController) Get() {
 	uid := u.GetString("uid")
 	fmt.Printf("uid为::%v\n", uid)
 
-	if uid != "" {
+	if uid == "" || len(uid) == 0 {
+		users := models.GetAllUsers()
+		u.Data["json"] = users
+		u.ServeJSON()
+	} else if uid == "json" {
+		uModel := models.User{Id: "id1", Username: "name1"}
+		u.Data["json"] = &uModel
+		u.ServeJSON()
+	} else if uid == "401" {
+		u.Abort("401")
+	} else {
 		user, err := models.GetUser(uid)
 		if err != nil {
 			u.Data["json"] = err.Error()
 		} else {
 			u.Data["json"] = user
 		}
-		u.ServeJSON()
-	} else if uid == "json" {
-		uModel := models.User{Id: "id1", Username: "name1"}
-		u.Data["json"] = &uModel
-		u.ServeJSON()
-	} else {
-		users := models.GetAllUsers()
-		u.Data["json"] = users
 		u.ServeJSON()
 	}
 }
