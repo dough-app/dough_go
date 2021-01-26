@@ -3,6 +3,7 @@ package main
 import (
 	_ "dough_go/routers"
 	"fmt"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql" // import your used driver
 )
@@ -22,33 +23,33 @@ func init() {
 }
 
 func main() {
-	o := orm.NewOrm()
-
-	user := User{Name: "slene", Id: 33}
-
-	// insert
-	id, err := o.Insert(&user)
-	fmt.Printf("ID: %d, ERR: %v\n", id, err)
-
-	// update
-	user.Name = "astaxie"
-	num, err := o.Update(&user)
-	fmt.Printf("update::NUM: %d, ERR: %v\n", num, err)
+	//o := orm.NewOrm()
+	//
+	//user := User{Name: "slene", Id: 1}
+	//
+	//// insert
+	//id, err := o.Insert(&user)
+	//fmt.Printf("ID: %d, ERR: %v\n", id, err)
+	//
+	//// update
+	//user.Name = "astaxie"
+	//num, err := o.Update(&user)
+	//fmt.Printf("update::NUM: %d, ERR: %v\n", num, err)
 
 	// read one
-	u := User{Id: user.Id}
-	err = o.Read(&u)
-	fmt.Printf("Read::ERR: %v\n", err)
+	//u := User{Id: user.Id}
+	//err := o.Read(&u)
+	//fmt.Printf("Read::ERR: %v\n", err)
 
 	// delete
-	num, err = o.Delete(&u)
-	fmt.Printf("Delete::NUM: %d, ERR: %v\n", num, err)
+	//num, err = o.Delete(&u)
+	//fmt.Printf("Delete::NUM: %d, ERR: %v\n", num, err)
 
-	//str := beego.AppConfig.String("mysqluser")
-	//fmt.Printf("MyConfig::%v\n", str)
-	//if beego.BConfig.RunMode == "dev" {
-	//	beego.BConfig.WebConfig.DirectoryIndex = true
-	//	beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
-	//}
-	//beego.Run()
+	str := beego.AppConfig.String("mysqluser")
+	fmt.Printf("MyConfig::%v\n", str)
+	if beego.BConfig.RunMode == "dev" {
+		beego.BConfig.WebConfig.DirectoryIndex = true
+		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
+	}
+	beego.Run()
 }
